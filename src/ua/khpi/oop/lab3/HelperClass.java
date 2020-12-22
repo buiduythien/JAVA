@@ -8,24 +8,25 @@ import java.util.Scanner;
 public class HelperClass {
     public void outputText(StringBuilder line)
     {
+
         System.out.println(line);
     }
 
 
     public StringBuilder inputText()
-    {StringBuilder sb=new StringBuilder();
-        Scanner scan = new Scanner(System.in);
+    {StringBuilder StringBuilder=new StringBuilder();
+        Scanner Scanner = new Scanner(System.in);
         System.out.print("Enter text: ");
 
-        String inputText = scan.nextLine();
-        scan.close();
+        String inputText = Scanner.nextLine();
+        Scanner.close();
         int temp = 0;
 
         for(int i =0 ;i<inputText.length();i++) {
-            sb.append(inputText.charAt(i));
+            StringBuilder.append(inputText.charAt(i));
         }
 
-        return sb;
+        return StringBuilder;
     }
     public  void getWords(String text,int k, String sentence) {
         List<String> words = new ArrayList<String>();
@@ -70,3 +71,4 @@ public class HelperClass {
 
     }
 }
+
