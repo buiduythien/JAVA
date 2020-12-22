@@ -4,66 +4,84 @@ import java.util.NoSuchElementException;
 import java.io.Serializable;
 public class Container {
     private static final long serialVersionUID = 1L;
-    private String[] mas;
+    private String[] arr;
     private int len;
-    //---------------------------------------------------
+
+    public void Sort()
+    {
+
+
+        for(int i = 0; i < len - 1; i++)
+        {
+            for(int j = i + 1; j < len; j++)
+            {
+                if(arr[i].compareTo(arr[j]) > 0)
+                {
+
+                    String temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+    }
     public String toString()
     {
         StringBuilder str = new StringBuilder();
 
         for(int i = 0; i < len; i++)
         {
-            str.append(mas[i] + " | ");
+            str.append(arr[i] + " | ");
         }
 
         return str.toString();
     }
-    //---------------------------------------------------
+
     public void add(String string)
     {
         String[] nmas = new String[len + 1];
 
         for(int i = 0; i < len; i++)
         {
-            nmas[i] = mas[i];
+            nmas[i] = arr[i];
         }
 
         nmas[len] = string;
         len++;
-        mas = nmas;
+        arr = nmas;
     }
-    //---------------------------------------------------
+
     public void clear()
     {
         for(int i = 0; i < len; i++)
         {
-            mas[i] = null;
+            arr[i] = null;
         }
         len = 0;
     }
-    //---------------------------------------------------
+
     public boolean remove(String string)
     {
         boolean b = false;
 
         for(int i = 0; i < len; i++)
         {
-            if(mas[i].equals(string))
+            if(arr[i].equals(string))
             {
                 b = true;
                 String[] nmas = new String[len - 1];
 
                 for(int j = 0; j < i; j++)
                 {
-                    nmas[j] = mas[j];
+                    nmas[j] = arr[j];
                 }
 
                 for(int j = i; j+1 < len; j++)
                 {
-                    nmas[j] = mas[j+1];
+                    nmas[j] = arr[j+1];
                 }
 
-                mas = nmas;
+                arr = nmas;
                 len--;
 
                 break;
@@ -72,31 +90,30 @@ public class Container {
 
         return b;
     }
-    //---------------------------------------------------
+
     public Object[] toArray()
     {
         Object[] obj = new Object[len];
 
         for(int i = 0; i < len; i++)
         {
-            obj[i] = mas[i];
+            obj[i] = arr[i];
         }
 
         return obj;
     }
-    //---------------------------------------------------
+
     public int size()
     {
         return len;
     }
-    //---------------------------------------------------
     public boolean contains(String string)
     {
         boolean con = false;
 
         for(int i = 0; i < len; i++)
         {
-            if(mas[i].equals(string))
+            if(arr[i].equals(string))
             {
                 con = true;
                 break;
@@ -104,7 +121,6 @@ public class Container {
         }
         return con;
     }
-    //---------------------------------------------------
     public boolean containsAll(Container container)
     {
         boolean con = false;
@@ -115,7 +131,7 @@ public class Container {
         {
             for(int j = 0; j < size; j++)
             {
-                if(mas[i].equals(container.GetEl(j)))
+                if(arr[i].equals(container.GetEl(j)))
                 {
                     count++;
                     break;
@@ -130,57 +146,36 @@ public class Container {
 
         return con;
     }
-    //---------------------------------------------------
     public String GetEl(int i)
     {
-        return mas[i];
+        return arr[i];
     }
-    //---------------------------------------------------
     public Container(String... str)
     {
         len = str.length;
 
         if(len > 0)
         {
-            mas = new String[len];
+            arr = new String[len];
 
             for(int i = 0; i < len; i++)
             {
-                mas[i] = str[i];
+                arr[i] = str[i];
             }
         }
     }
-    //---------------------------------------------------
-    public void Sort()
-    {
-        String temp;
 
-        for(int i = 0; i < len - 1; i++)
-        {
-            for(int j = i + 1; j < len; j++)
-            {
-                if(mas[i].compareTo(mas[j]) > 0)
-                {
-                    temp = mas[i];
-                    mas[i] = mas[j];
-                    mas[j] = temp;
-                }
-            }
-        }
-    }
-    //---------------------------------------------------
     public Iterator<String> iterator()
     {
+
         return new MyIterator<String>();
     }
-    //---------------------------------------------------
     public class MyIterator<String> implements Iterator{
         private int ind = 0;
-
+        boolean check = false;
         @Override public boolean hasNext()
         {
-            if(ind < len) return true;
-            else return false;
+           return ind< len;
         }
 
         @Override public Object next()
@@ -189,12 +184,21 @@ public class Container {
             {
                 throw new NoSuchElementException();
             }
-            return mas[ind++];
+            check = true;
+            return arr[ind++];
         }
 
         @Override public void remove()
         {
-            Container.this.remove(mas[--ind]);
+            if(check){
+                Container.this.remove(arr[--ind]);
+                check = false;
+            }
+            else
+            {
+                throw new IllegalStateException();
+            }
+
         }
 
     }
