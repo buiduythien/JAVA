@@ -1,54 +1,11 @@
 package ua.khpi.oop.lab6;
 import java.io.*;
 public class Serialization {
-    public boolean serialization(Container cont)
-    {
 
-        boolean flag = false;
-
-        File file = new File("D:/Cont.txt");
-
-        ObjectOutputStream oos = null;
-
-        try
-        {
-            FileOutputStream fos = new FileOutputStream(file);
-            if(fos != null)
-            {
-                oos = new ObjectOutputStream(fos);
-                oos.writeObject(cont);
-                flag = true;
-            }
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            if(oos != null)
-            {
-                try
-                {
-                    oos.close();
-                }
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return flag;
-    }
 
     public Container deserialization()
     {
-        File file = new File("D:/Cont.txt");
+        File f = new File("D:/Cont.txt");
 
         ObjectInputStream ois = null;
 
@@ -56,10 +13,10 @@ public class Serialization {
 
         try
         {
-            FileInputStream fis = new FileInputStream(file);
-            if(fis != null)
+            FileInputStream is = new FileInputStream(f);
+            if(is != null)
             {
-                ois = new ObjectInputStream(fis);
+                ois = new ObjectInputStream(is);
                 cont = (Container)ois.readObject();
             }
         }
@@ -88,6 +45,50 @@ public class Serialization {
         }
 
         return cont;
+    }
+    public boolean serialization(Container cont)
+    {
+
+        boolean flag = false;
+
+        File f = new File("D:/Cont.txt");
+
+        ObjectOutputStream oos = null;
+
+        try
+        {
+            FileOutputStream os = new FileOutputStream(f);
+            if(os != null)
+            {
+                oos = new ObjectOutputStream(os);
+                oos.writeObject(cont);
+                flag = true;
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if(oos != null)
+            {
+                try
+                {
+                    oos.close();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return flag;
     }
 
 }
