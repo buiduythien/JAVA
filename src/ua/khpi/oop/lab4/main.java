@@ -33,7 +33,7 @@ public class main {
     static void menu() {
         Scanner scan = new Scanner(System.in);
         String choise;
-        boolean stop = false;
+        
 
         while (true) {
             System.out.println("Menu");
