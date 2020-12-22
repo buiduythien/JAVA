@@ -5,6 +5,36 @@ public class MyContainer {
     private String[] array;
     private int size;
 
+    public boolean remove(String string)
+    {
+        boolean b = false;
+
+        for(int i = 0; i <size; i++)
+        {
+            if(array[i].equals(string))
+            {
+                b = true;
+                String[] nmas = new String[size - 1];
+
+                for(int j = 0; j < i; j++)
+                {
+                    nmas[j] = array[j];
+                }
+
+                for(int j = i; j+1 < size; j++)
+                {
+                    nmas[j] = array[j+1];
+                }
+
+                array= nmas;
+                size--;
+
+                break;
+            }
+        }
+
+        return b;
+    }
     public void clear()
     {
         for(int i = 0; i < size; i++)
@@ -36,34 +66,7 @@ public class MyContainer {
     }
 
 
-    public boolean remove(String string)
-    {
-        boolean result = false;
-        int position = 0;
-
-        for (int i = 0; i < size; i++)
-            if(array[i].equals(string))
-            {
-                result = true;
-                position = i;
-                break;
-            }
-
-        if(result)
-        {
-            String[] newArray = new String[size-1];
-
-            for (int i = 0; i < position; i++)
-                newArray[i] = array[i];
-            for (int i = position; i+1 < size; i++)
-                newArray[i]=array[i+1];
-
-            size--;
-            array=newArray;
-        }
-
-        return result;
-    }
+    
 
     public Object[] toArray()
     {
