@@ -30,62 +30,60 @@ public class main {
 
     }
 
-    static void menu()
-    {
+    static void menu() {
         Scanner scan = new Scanner(System.in);
         String choise;
         boolean stop = false;
 
-        while(stop != true)
-        {
-            System.out.println("What to do?");
-            System.out.println("1. Enter the data");
-            System.out.println("2. Perfom a task");
-            System.out.println("3. End program");
-            System.out.println("=================");
+        while (true) {
+            System.out.println("Menu");
+            System.out.println("1. Enter text :");
+            System.out.println("2. Execute the task with output result:");
+            System.out.println("3. Exit");
+            System.out.println("------------");
             System.out.print("Your choise: ");
 
             choise = scan.nextLine();
+            System.out.println(choise);
 
-            switch(choise) {
-                case "1":
+            if (Integer.parseInt(choise) == 1) {
 
-                    System.out.print("Enter processed text: ");
-                    text = new StringBuilder(help.inputText());
+                System.out.print("Please enter  text: ");
+                text = new StringBuilder(help.inputText());
 
-                    System.out.println(" ");
-                    break;
+                System.out.println(" ");
 
-                case "2":
+            } else if (Integer.parseInt(choise) == 2) {
 
 
-                    if (text.toString().isEmpty() )
-                        System.out.println("Error. Enter the data before.\n");
+                if (text.toString().isEmpty())
+                    System.out.println("There is no data.Please enter your data text !\n");
 
-                    else
-                        newtext = text.toString();
-                    getWords( newtext, k,  sentence);
 
-                    break;
+                else
+                    newtext = text.toString();
+                getWords(newtext, k, sentence);
 
-                case "3":
-                    stop = true;
-                    break;
 
-                default:
-                    System.out.println("Error. Wrong command.\n");
-                    break;
+            } else if (Integer.parseInt(choise) == 3) {
+
+                break;
+            } else {
+                System.out.println("Unknown command!\n");
+
             }
-        }
 
-        scan.close();
+        }
+            scan.close();
+
     }
 
     static void getWords(String text,int k, String sentence) {
         if(debugFlag)
         {
             System.out.print("Text : " + text + "\n\n");
-            System.out.println("Length of processed text: " + text.length());
+            System.out.println("Length of  text: " + text.length());
+            System.out.println("Your text is processing in debag mode");
             System.out.print("\n\n");
 
         }
@@ -124,4 +122,6 @@ public class main {
 
 
 }
+
+
 
